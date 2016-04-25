@@ -13,26 +13,34 @@
         <br>
         <br>
         <fieldset style="background-color: black">
-            <form method="POST" action="agrega.php">
+            <form method="POST" action="ValidaAcceso.php">
                 <tr>
-                    <td><input type="text" name="user" id="user" required="true"</td>
+                    <td><input type="text" name="usuario" id="usuario" required="true"</td>
                 </tr>
                 <tr>
-                    <td><input type="password" name="pass" id="pass" required="true"</td>
+                    <td><input type="password" name="clave" id="clave" required="true"</td>
                 </tr>
                 <tr>
-                    <td><input type="submit" name="entrar" id="entrar"value="Entrar" onclick="Validar()"</td>
+                    <td><input type="button" name="entrar" id="entrar"value="Entrar" onclick="Validar()"</td>
                 </tr>            
             </form>
         </fieldset>
     </center>
 </body>
 <script type="text/javascript" >
-function Validar(){
-    var clave;
-    var dato=$("clave").val();
-    clave=CryptoJS.MD5(dato).toString();
-    alert(clave);    
-}
+    function Validar() {
+        var clave;
+        var dato = $("#clave").val();
+        clave = CryptoJS.MD5(dato).toString();
+
+        $.ajax({
+            url: 'ValidaAcceso.php',
+            type: 'POST',
+            data: "usuario=" + $("#usuario").val() + "&clave=" + clave,
+            success: function (dato) {
+                alert(dato);
+            }
+        });
+    }
 </script>
 </html>
