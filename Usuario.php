@@ -1,5 +1,7 @@
 <?php
 
+require './db_funciones.php';
+
 Class Usuario {
 
     var $snombre;
@@ -49,6 +51,8 @@ Class Usuario {
     public function Acceso() {
         $snombusuario = "admin";
         $sclave = md5("holamundo");
+
+        $db = dbconnect();
 
         if ($this->nombre == $snombusuario && $this->clave == $sclave)
             return true;
